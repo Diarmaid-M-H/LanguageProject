@@ -1,9 +1,19 @@
+import csv
+
 import numpy as np
 import pandas as pd
 from sklearn.neural_network import MLPRegressor
 from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.metrics import mean_squared_error
 
+def write_csv(data, file_path):
+    if isinstance(data, pd.DataFrame):
+        data = data.to_dict(orient='records')
+
+    with open(file_path, 'w', newline='', encoding='iso-8859-1') as file:
+        writer = csv.DictWriter(file, fieldnames=data[0].keys())
+        writer.writeheader()
+        writer.writerows(data)
 
 def process_time_series_data(file_2006, file_2011, file_2016, file_2022):
     # Read data from CSV files
@@ -60,7 +70,8 @@ def regression(dataframe):
     regressor.fit(features, targets)
     # Predict outputs using the provided features
     dataframe['Speakers2027'] = regressor.predict(future_features)
-    print(dataframe.to_string())
+    #print(dataframe)
+    write_csv(dataframe, "Regressor_Predict.csv")
 
 def combineDataFrames(df2006, df2011, df2016, df2022):
     # Create a new DataFrame with GEOGDESC column from df2022
@@ -82,14 +93,6 @@ DF2006, DF2011, DF2016, DF2022 = process_time_series_data("SAPS_2006.csv", "SAPS
                                                           "SAPS_2022.csv")
 # combine data sets into a single dataframe
 combined_df = combineDataFrames(DF2006, DF2011, DF2016, DF2022)
-regression(combined_df)
 
-# print("2006")
-# print(DF2006)
-# print("2011")
-# print(DF2011)
-# print("2016")
-# print(DF2016)
-# print("2022")
-# print(DF2022['ProportionDailySpeakers'])
+regression(combined_df)
 
