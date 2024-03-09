@@ -115,7 +115,7 @@ for index, row in df.iterrows():
     df.at[index, "Speakers2027"] = predicted_speakers_2027
 
 # Reorder columns
-df = df.reindex(columns=['Speakers2006', 'Speakers2011', 'Speakers2016', 'Speakers2022', 'Speakers2027', 'OptimizedAbandonmentFraction', 'OptimizedProbAcquisition', 'RMSE'])
+df = df.reindex(columns=['Speakers2006', 'Speakers2011', 'Speakers2016', 'Speakers2022', 'Speakers2027', 'OptimizedAbandonmentFraction', 'OptimizedProbAcquisition'])
 
 # Print updated dataframe
 print(df.to_string())
