@@ -49,8 +49,13 @@ def process_time_series_data(file_2006, file_2011, file_2016, file_2022):
     return df_2006, df_2011, df_2016, df_2022
 
 
+import pandas as pd
+from sklearn.neural_network import MLPRegressor
+from sklearn.model_selection import KFold
+from sklearn.metrics import mean_squared_error
+
 def regression(dataframe):
-    # Extract features (X) and target (y) for training
+
     features = pd.DataFrame()
     features["year1"] = dataframe["Speakers2006"]
     features["year2"] = dataframe["Speakers2011"]
@@ -67,11 +72,71 @@ def regression(dataframe):
 
     # Initialize MLPRegressor
     regressor = MLPRegressor(random_state=42)
+
+    # Initialize k-fold cross-validation
+    kf = KFold(n_splits=10, shuffle=True, random_state=22)
+
+    indices = []
+    errors = []
+    # Perform k-fold cross-validation
+    for train_index, test_index in kf.split(features):
+        #print(train_index)
+        # print(test_index)
+        X_train, X_test = features.iloc[train_index], features.iloc[test_index]
+        y_train, y_test = targets.iloc[train_index], targets.iloc[test_index]
+
+        # Train the model
+        regressor.fit(X_train, y_train)
+        # Make predictions for the test set
+        y_pred = regressor.predict(X_test)
+
+        testList = y_test["year4"]
+        testList = testList.values.tolist()
+        fold_errors = []
+
+        # Calculate mean squared error for each row in the test set
+        for i in range(len(test_index)):
+            absolute_error = abs(testList[i] - y_pred[i])
+            errors.append(absolute_error)
+            indices.append(test_index[i])
+            # add absolute error to the combined dataframe at test_index[i]
+            # test index [i] gives the index in the original list of the row
+
+    sortDF = pd.DataFrame()
+    sortDF["index"] = indices
+    sortDF["error"] = errors
+    # sort the error values into the same order as original dataframe
+    sortDF = sortDF.sort_values(by="index")
+
+    # Train the final model on the entire dataset
     regressor.fit(features, targets)
-    # Predict outputs using the provided features
+
+    # Make predictions for the hypothetical next census value (Speakers2027)
     dataframe['Speakers2027'] = regressor.predict(future_features)
-    #print(dataframe)
-    write_csv(dataframe, "Regressor_Predict.csv")
+    dataframe["Error"] = sortDF["error"]
+    # Print dataframe with added error column
+    print(dataframe.to_string())
+    #highest_error = dataframe['Error'].max()
+    #lowest_error = dataframe['Error'].min()
+    mean_error = dataframe['Error'].mean()
+    std_dev_error = dataframe['Error'].std()
+
+    # Find index of row with lowest error
+    lowest_error_index = dataframe['Error'].idxmin()
+    # Find index of row with highest error
+    highest_error_index = dataframe['Error'].idxmax()
+
+    # Print entire row with lowest error
+    print("Row with Lowest Error:")
+    print(dataframe.loc[lowest_error_index])
+
+    # Print entire row with highest error
+    print("\nRow with Highest Error:")
+    print(dataframe.loc[highest_error_index])
+    print("Mean Absolute Error:", mean_error)
+    print("Standard Deviation of Error:", std_dev_error)
+
+    dataframe.to_csv(r"./RegressorPredictionWithError.csv")
 
 def combineDataFrames(df2006, df2011, df2016, df2022):
     # Create a new DataFrame with GEOGDESC column from df2022
