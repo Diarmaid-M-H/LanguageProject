@@ -93,7 +93,7 @@ dataframe, removed_rows = processFile(shapeDF, speakersDF)
 # displayFile(dataframe, removed_rows, r'.\maps\IrishSpeakers2022',"Speakers2022")
 
 #displayFile(dataframe,removed_rows,r'.\maps\Crungle.png',"Speakers2027")
-displayFile(dataframe,removed_rows,r'.\maps\EpidemiologyTunedError.png',"Error")
+displayFile(dataframe,removed_rows,r'.\maps\DemoOutput.png',"Error")
 #displayFile(dataframe,removed_rows,r'.\maps\EpidemiologyTunedPrediction',"Speakers2027")
 #displayChange(dataframe,removed_rows,r'.\maps\EpidemiologyTunedChangePredicted',"Speakers2022","Speakers2027")
 #displayHistoricalChange()

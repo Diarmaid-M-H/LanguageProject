@@ -136,7 +136,7 @@ def regression(dataframe):
     print("Mean Absolute Error:", mean_error)
     print("Standard Deviation of Error:", std_dev_error)
 
-    dataframe.to_csv(r"./RegressorPredictionWithError.csv")
+    dataframe.to_csv(r"./DemoDataRegressor.csv")
 
 def combineDataFrames(df2006, df2011, df2016, df2022):
     # Create a new DataFrame with GEOGDESC column from df2022
