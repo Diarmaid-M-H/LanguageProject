@@ -35,7 +35,7 @@ def process_files(file_2022, file_2016, output_file):
     write_csv(processed_data, output_file)
 
 if __name__ == "__main__":
-    SAPS_2022_file = "SAPS_2022_RAW.csv"
-    SAPS_2016_file = "SAPS_2016.csv"
-    output_file = "SAPS_2022.csv"
+    SAPS_2022_file = "Output CSVs/SAPS_2022_RAW.csv"
+    SAPS_2016_file = "Output CSVs/SAPS_2016.csv"
+    output_file = "Output CSVs/SAPS_2022.csv"
     process_files(SAPS_2022_file, SAPS_2016_file, output_file)

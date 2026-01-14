@@ -77,7 +77,7 @@ def displayHistoricalChange():
 shapeDF = gpd.read_file(r".\shapefiles\Galway_ED_20M.geojson")
 #speakersDF = pandas.read_csv(r'abilityToSpeakIrish.csv')
 #speakersDF = pandas.read_csv(r'RegressorPredictionWithError.csv')
-speakersDF = pandas.read_csv(r'TunedEpidemiology.csv')
+speakersDF = pandas.read_csv(r'Output CSVs/TunedEpidemiology.csv')
 dataframe, removed_rows = processFile(shapeDF, speakersDF)
 # for index, row in dataframe.iterrows():
 #     print(row)

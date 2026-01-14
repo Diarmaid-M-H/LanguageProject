@@ -139,7 +139,7 @@ def parameterGridSearch(df):
             print(initial_guess,"calculation complete")
 
     # Write mean absolute errors to CSV file
-    with open('mean_absolute_errors.csv', 'w', newline='') as csvfile:
+    with open('Output CSVs/mean_absolute_errors.csv', 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
         #abandonment fraction along the top.
         writer.writerow(["Prob_Acquisition"] + abandonment_fraction_values)
@@ -148,7 +148,7 @@ def parameterGridSearch(df):
             writer.writerow([prob_acquisition] + [mean_absolute_errors[prob_acquisition][af] for af in abandonment_fraction_values])
 
     # Write standard deviations to CSV file
-    with open('std_dev_errors.csv', 'w', newline='') as csvfile:
+    with open('Output CSVs/std_dev_errors.csv', 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(["Prob_Acquisition"] + abandonment_fraction_values)
         for prob_acquisition in prob_acquisition_values:
@@ -228,7 +228,7 @@ def langModel(df):
     df.to_csv("DemoEpidemiology.csv", index=False)
 
 
-dataframe = pd.read_csv("CombinedDailySpeakers.csv")
+dataframe = pd.read_csv("Output CSVs/CombinedDailySpeakers.csv")
 #parameterGridSearch(dataframe)
 langModel(dataframe)
 

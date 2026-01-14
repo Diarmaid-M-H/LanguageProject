@@ -154,8 +154,9 @@ def combineDataFrames(df2006, df2011, df2016, df2022):
     return combinedDF
 
 # Usage
-DF2006, DF2011, DF2016, DF2022 = process_time_series_data("SAPS_2006.csv", "SAPS_2011.csv", "SAPS_2016.csv",
-                                                          "SAPS_2022.csv")
+DF2006, DF2011, DF2016, DF2022 = process_time_series_data("Output CSVs/SAPS_2006.csv", "Output CSVs/SAPS_2011.csv",
+                                                          "Output CSVs/SAPS_2016.csv",
+                                                          "Output CSVs/SAPS_2022.csv")
 # combine data sets into a single dataframe
 combined_df = combineDataFrames(DF2006, DF2011, DF2016, DF2022)
 

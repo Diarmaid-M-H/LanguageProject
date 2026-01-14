@@ -2,10 +2,10 @@ import pandas as pd
 
 def abilityToSpeakIrish():
     # Read in all 4 datasets
-    saps_2006 = pd.read_csv("SAPS_2006.csv")
-    saps_2011 = pd.read_csv("SAPS_2011.csv")
-    saps_2016 = pd.read_csv("SAPS_2016.csv")
-    saps_2022 = pd.read_csv("SAPS_2022.csv")
+    saps_2006 = pd.read_csv("Output CSVs/SAPS_2006.csv")
+    saps_2011 = pd.read_csv("Output CSVs/SAPS_2011.csv")
+    saps_2016 = pd.read_csv("Output CSVs/SAPS_2016.csv")
+    saps_2022 = pd.read_csv("Output CSVs/SAPS_2022.csv")
 
     # Create a new dataframe combinedDF
     combinedDF = pd.DataFrame()
@@ -44,8 +44,8 @@ def abilityToSpeakIrish():
     print(combinedDF.to_string())
 
 def averages():
-    regressDF=pd.read_csv("RegressorPredictionWithError.csv")
-    epidemDF = pd.read_csv("Epidemiology_0101.csv")
+    regressDF=pd.read_csv("Output CSVs/RegressorPredictionWithError.csv")
+    epidemDF = pd.read_csv("Output CSVs/Epidemiology_0101.csv")
 
     # Calculate the change
     regressDF['change'] = regressDF['Speakers2027'] - regressDF['Speakers2022']
